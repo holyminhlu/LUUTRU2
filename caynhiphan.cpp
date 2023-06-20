@@ -65,6 +65,82 @@ void LRN( Tree &t )
 		printf("%d\t",t->Data);
 	}
 }
+int ChieuCao( Tree &t )
+{
+	if( t == NULL )
+	{
+		return 0;
+	}
+	else
+	{
+		int Left_cc = ChieuCao(t->left);
+		int Right_cc = ChieuCao( t -> right);
+		if( Left_cc > Right_cc )
+		{
+			return Left_cc + 1;
+		}
+		else
+		{
+			return Right_cc + 1;
+		}
+	}
+}
+int SoNut( Tree &t )
+{
+	if( t == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1 + SoNut( t -> right ) + SoNut( t -> left );
+	}
+}
+int SoNutLa(  Tree &t )
+{
+	if( t == NULL )
+	{
+		return 0;
+	}
+	else if( t -> left == NULL && t -> right == NULL)
+	{
+		return 1;
+	}
+	else
+	{
+		return SoNutLa( t -> left ) + SoNutLa( t -> right );
+	}
+}
+int NutLa1(  Tree &t  )
+{
+	if( t == NULL )
+	{
+		return 0;
+	}
+	else if ( (t -> left == NULL && t -> right != NULL ) || ( t -> left != NULL && t -> right == NULL ))
+	{
+		return 1 + NutLa1( t -> left ) + NutLa1( t -> right );
+	}
+	else
+	{
+		return NutLa1( t -> left ) + NutLa1( t -> right );
+	}
+}
+int NutLa2(  Tree &t  )
+{
+	if(t == NULL )
+	{
+		return 0;
+	}
+	else if ( t -> left != NULL && t -> right != NULL )
+	{
+		return 1 + NutLa2( t -> left ) + NutLa2( t -> right );
+	}
+	else
+	{
+		return NutLa2( t -> left ) + NutLa2( t -> right );
+	}
+}
 int main()
 {
 	Tree t;
@@ -85,6 +161,12 @@ int main()
 		LNR(t);
 			printf("\nLRN: \t");
 			LRN(t);
+			printf("\n");
+printf("\nChieu cao cua cay: %d ", ChieuCao(t));
+printf("\nSo nut cua cay: %d ", SoNut(t));
+printf("\nSo nut la: %d ", SoNutLa(t));
+printf("\nSo nut la 1 con: %d ", NutLa1(t));
+printf("\nSo nut la 2 con: %d ", NutLa2( t));
 	printf("\n");
 system("pause");
 return 0;
